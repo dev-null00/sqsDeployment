@@ -12,3 +12,5 @@ after_success:
   - docker build -t deployer .
   - docker tag deployer:latest $DEPLOYER_REPO_URI:$TRAVIS_BRANCH
   - docker push $DEPLOYER_REPO_URI:$TRAVIS_BRANCH
+  - docker pull 766951526867.dkr.ecr.us-west-2.amazonaws.com/deployer:master
+  - docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_REGION=$AWS_REGION -e MESSAGE_TO_SEND=$MESSAGE_TO_SEND 766951526867.dkr.ecr.us-west-2.amazonaws.com/deployer:master
