@@ -2,6 +2,8 @@ package com.theleadengineer.infrastructure;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
+import com.amazonaws.services.ecr.AmazonECR;
+import com.amazonaws.services.ecr.AmazonECRClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.util.StringUtils;
@@ -23,5 +25,10 @@ public class AWSModule extends AbstractModule {
     @Provides
     AWSCredentialsProvider providesAWSCredentials(){
         return new SystemPropertiesCredentialsProvider();
+    }
+
+    @Provides
+    AmazonECR getECRClient(){
+        return AmazonECRClientBuilder.defaultClient();
     }
 }
