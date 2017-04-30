@@ -1,0 +1,14 @@
+language: java
+jdk:
+  - oraclejdk8
+sudo: required
+services:
+  - docker
+after_success:
+  - docker login -u AWS -p $AWS_DOCKER_LOGIN -e none $DEPLOYER_REPO_URL
+  - cd deployer
+  - sh src/scripts/buildDockerSetup.sh
+  - cd src/docker
+  - docker build -t deployer .
+  - docker tag deployer:latest $DEPLOYER_REPO_URI:$TRAVIS_BRANCH
+  - docker push $DEPLOYER_REPO_URI:$TRAVIS_BRANCH
